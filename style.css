@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+html, body {
+  overflow: hidden;
+  cursor: none;
+}
+
+header {
+  position: relative;
+  width: 100%;
+  z-index: 3;
+}
+header nav {
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 30px;
+}
+
+.logo {
+  position: relative;
+  width: 130px;
+  height: 100%;
+  z-index: 103;
+}
+.logo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.hamburger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 45px;
+  height: 100%;
+  z-index: 103;
+}
+
+.hamburger .bar {
+  position: relative;
+  width: 20px;
+  height: 3px;
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburger .bar:nth-child(2) {
+  margin-top: 4px;
+}
+
+.menu:hover .hamburger .bar:nth-child(1) {
+  transform: translateY(-2px);
+}
+
+.menu:hover .hamburger .bar:nth-child(2) {
+  transform: translateY(2px);
+}
+
+.menu.active {
+  cursor: pointer;
+}
+.menu.active:hover .bar:nth-child(1), .menu.active .bar:nth-child(1) {
+  transform-origin: center;
+  transform: rotate(225deg) translate(0, -4.5px);
+  transition: 0.6s ease-in-out;
+}
+.menu.active:hover .bar:nth-child(2), .menu.active .bar:nth-child(2) {
+  transform-origin: center;
+  transform: rotate(-225deg) translate(0, 4.5px);
+  transition: 0.6s ease-in-out;
+}
+
+.menu-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 45px;
+  height: 100%;
+  z-index: 103;
+}
+.menu-title h4 {
+  position: absolute;
+  color: #fff;
+  transition: opacity 0.3s ease-in-out;
+}
+.menu-title h4:nth-child(1) {
+  transition-delay: 0.6s;
+}
+.menu-title h4:nth-child(1).active {
+  opacity: 0;
+}
+.menu-title h4:nth-child(2) {
+  opacity: 0;
+}
+.menu-title h4:nth-child(2).active {
+  opacity: 1;
+  transition-delay: 1s;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  width: 0%;
+  height: 100vh;
+  background-color: black;
+  color: #c7c7c7;
+  z-index: 102;
+  transition: width 0.6s ease-in-out;
+  pointer-events: none;
+  transition-delay: 0.4s;
+}
+
+.overlay.active {
+  pointer-events: all;
+  width: 100%;
+  transition: width 0.6s ease-in-out;
+}
+@media (max-width: 768px) {
+  .overlay.active .menu-nav-container::after {
+    transform: scaleY(1) translateX(-50%);
+  }
+}
+
+.menu-nav-container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .menu-nav-container {
+    grid-template-columns: 50% 50%;
+  }
+}
+.menu-nav-container::after {
+  content: "";
+  position: absolute;
+  left: 60%;
+  width: 1px;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: linear-gradient(0.5turn, #1e1e1e, #4a4a4a 20%, #c7c7c7, #4a4a4a 80%, #1e1e1e);
+  transition: transform 0.3s ease-in-out;
+}
+.overlay.active .menu-nav-container::after {
+  transform: scaleY(1);
+  transition: transform 0.6s ease-in-out;
+  transition-delay: 0.6s;
+}
+@media (max-width: 768px) {
+  .menu-nav-container::after {
+    left: 50%;
+    transform: scaleY(0) translateX(-50%);
+  }
+}
+
+.menu-info {
+  display: grid;
+  align-items: center;
+  grid-template-rows: repeat(3, 80px);
+  padding-left: 5%;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: transform 0.6s, opacity 0.4s;
+  transition-timing-function: ease-in-out;
+}
+.overlay.active .menu-info {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 1.2s, opacity 0.8s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0.3s;
+}
+
+.menu-nav {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: repeat(3, 80px);
+}
+.menu-nav .container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  height: 50%;
+}
+.menu-nav .container small {
+  position: relative;
+  bottom: 3.7px;
+  margin-right: 7px;
+}
+.menu-nav .container a {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #c7c7c7;
+  font-weight: 700;
+}
+.menu-nav .container p {
+  margin-top: 10px;
+}
+.menu-nav .container .text {
+  display: flex;
+  align-items: end;
+  cursor: pointer;
+  position: relative;
+  bottom: 0;
+  transform: translateY(30px);
+  opacity: 0;
+  color: #c7c7c7;
+  transition: transform 0.6s, opacity 0.3s;
+  transition-delay: 0s, 0.5s;
+  transition-timing-function: ease-in-out;
+}
+.overlay.active .menu-nav .container .text {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.6s, opacity 0.2s;
+  transition-timing-function: ease-in-out;
+  transition-delay: 0.3s;
+}
+
+main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.projects {
+  height: 100%;
+  width: calc(347.265625% + 60px);
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  left: 24.8046875%;
+}
+.projects .project {
+  position: relative;
+  width: 49.609375%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.projects .project img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 35% 100%;
+     object-position: 35% 100%;
+}
+.projects .project h1 {
+  position: absolute;
+  color: #fff;
+  font-size: 3rem;
+  transition: opacity 0.4s ease-in;
+}
+
+h1 span {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(30px);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #c7c7c7;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.left-arrow {
+  left: 30px;
+  transition: left 0.3s ease-in-out;
+}
+.left-arrow:hover {
+  left: 20px;
+}
+.left-arrow:hover .left-triangle {
+  transform: translateX(-15px);
+}
+.left-arrow:hover .line-left {
+  left: 7px;
+  transform: scaleX(0.55);
+}
+.left-arrow .left-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-right: 8px solid #c7c7c7;
+  border-bottom: 6px solid transparent;
+  transition: transform 0.3s ease-in-out;
+}
+.left-arrow .left-triangle .line-left {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  bottom: -50%;
+  height: 2px;
+  width: 52px;
+  background-color: #c7c7c7;
+  transform-origin: left;
+  transition: left, transform 0.3s ease-in-out;
+}
+
+.right-arrow {
+  right: 30px;
+  transition: right 0.3s ease-in-out;
+}
+.right-arrow:hover {
+  right: 20px;
+}
+.right-arrow:hover .right-triangle {
+  transform: translateX(15px);
+}
+.right-arrow:hover .line-right {
+  right: 7px;
+  transform: scaleX(0.55);
+}
+.right-arrow .right-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-left: 8px solid #c7c7c7;
+  border-bottom: 6px solid transparent;
+  transition: transform 0.3s ease-in-out;
+}
+.right-arrow .right-triangle .line-right {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  bottom: -50%;
+  height: 2px;
+  width: 52px;
+  background-color: #c7c7c7;
+  transform-origin: right;
+  transition: right, transform 0.3s ease-in-out;
+}
+
+.mouse {
+  position: fixed;
+  transform: translate(-50%, -50%) scale(1);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 0, 0, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.projects-title {
+  position: absolute;
+  top: 120px;
+  z-index: 4;
+}
+.projects-title h1 {
+  font-size: 15vw;
+  color: transparent;
+}
+.projects-title h1 span {
+  opacity: 1;
+  -webkit-text-stroke: 1px #ffffff;
+  transform: rotateY(90deg);
+  transition: transform 0.3s ease-in-out;
+}
+.projects-title h1 span.rotate {
+  transform: rotateY(0deg);
+  color: transparent;
+  -webkit-text-stroke: 1px #ffffff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.projects-title h1 span:nth-child(1) {
+  -webkit-text-stroke: 2px #9b9b9b;
+}/*# sourceMappingURL=style.css.map */
